@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -48,7 +47,7 @@ class _HomePageState extends State<HomePage>
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        // systemOverlayStyle: const SystemUiOverlayStyle(
+        // systemOverlayStyle: const SystemUiOverlayStyle( //not need
         //   statusBarBrightness: Brightness.dark,
         // ),
       ),

@@ -1,20 +1,21 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather/weather.dart';
-import 'package:weather_app/data/my_data.dart';
 import 'package:weather_app/domain/enitites/weather_model.dart';
 import 'package:weather_app/domain/repository/weather_repository.dart';
 import 'package:http/http.dart' as http;
 
 class ApiWeatherRepo implements WeatherRepo {
   static const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
+  final apiKey = dotenv.env['API_KEY'];
 
   @override
   Future<WeatherModel> fetchWeatherOrigin(Position position) async {
     try {
       final response = await http.get(Uri.parse(
-          '$BASE_URL?lat=${position.latitude}&lon=${position.longitude}&exclude=current&appid=$API_KEY'));
+          '$BASE_URL?lat=${position.latitude}&lon=${position.longitude}&exclude=current&appid=$apiKey'));
       if (response.statusCode == 200) {
         print(response.body);
         return WeatherModel.fromJson(jsonDecode(response.body));
@@ -30,7 +31,7 @@ class ApiWeatherRepo implements WeatherRepo {
   @override
   Future<Weather> fetchWeather(Position position) async {
     try {
-      WeatherFactory wf = WeatherFactory(API_KEY, language: Language.ENGLISH);
+      WeatherFactory wf = WeatherFactory(apiKey!, language: Language.ENGLISH);
       final Weather weather = await wf.currentWeatherByLocation(
         position.latitude,
         position.longitude,

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-//import 'package:weather/weather.dart';
 import 'package:weather_app/domain/enitites/weather_model.dart';
+//import 'package:weather/weather.dart';
 import 'package:weather_app/domain/repository/weather_repository.dart';
 
 part 'weather_state.dart';
