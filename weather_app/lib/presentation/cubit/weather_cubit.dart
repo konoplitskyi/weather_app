@@ -1,31 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:weather/weather.dart';
+//import 'package:weather/weather.dart';
+import 'package:weather_app/domain/enitites/weather_model.dart';
 import 'package:weather_app/domain/repository/weather_repository.dart';
 
 part 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   final WeatherRepo weatherRepo;
-  Position? _position;
-
   WeatherCubit({required this.weatherRepo}) : super(WeatherInitial());
 
-  Future<void> fetchWeather(Position position) async {
+  Future<void> fetchWeather() async {
     emit(WeatherLoading());
     try {
-      _position ??= position;
-      Weather weather = await weatherRepo.fetchWeather(position);
-      print(weather);
-      emit(WeatherLoaded(weather));
+      final position = await weatherRepo.getCurrentPosition();
+      //Weather weather = await weatherRepo.fetchWeather(position);// when use "weather packege"
+      final weatherModel = await weatherRepo.fetchWeatherOrigin(position);
+      emit(WeatherLoaded(weatherModel));
     } catch (e) {
-      print(e.toString());
       emit(WeatherFailure());
     }
-  }
-
-  Future<void> updateWeather() async {
-    fetchWeather(_position!);
   }
 }

@@ -120,8 +120,10 @@ class _HomePageState extends State<HomePage>
               builder: (context, state) {
                 if (state is WeatherLoaded) {
                   final isNight =
-                      state.weather.date!.isBefore(state.weather.sunrise!) ||
-                          state.weather.date!.isAfter(state.weather.sunset!);
+                      // state.weather.date!.isBefore(state.weather.sunrise!) ||
+                      //         state.weather.date!.isAfter(state.weather.sunset!); //when use "weather packege"
+                      state.weather.date.isBefore(state.weather.sunrise) ||
+                          state.weather.date.isAfter(state.weather.sunset);
 
                   return SafeArea(
                     child: SizedBox(
@@ -148,7 +150,8 @@ class _HomePageState extends State<HomePage>
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  '${state.weather.areaName}'.toUpperCase(),
+                                  //state.weather.areaName!.toUpperCase(), //when use "weather packege"
+                                  state.weather.areaName.toUpperCase(),
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 25,
@@ -161,12 +164,14 @@ class _HomePageState extends State<HomePage>
                             Column(
                               children: [
                                 _getWeatherIcon(
-                                  code: state.weather.weatherConditionCode!,
+                                  //code: state.weather.weatherConditionCode!, //when use "weather packege"
+                                  code: state.weather.weatherConditionCode,
                                   isNight: isNight,
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  '${state.weather.temperature!.celsius!.round()}°C',
+                                  //'${state.weather.temperature!.celsius!.round()}°C', //when use "weather packege"
+                                  '${state.weather.tempmerature.round()}°C',
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 25,
@@ -174,7 +179,8 @@ class _HomePageState extends State<HomePage>
                                   ),
                                 ),
                                 Text(
-                                  state.weather.weatherMain!.toUpperCase(),
+                                  //state.weather.weatherMain!.toUpperCase(), // when use "weather packege"
+                                  state.weather.weatherMain.toUpperCase(),
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 25,
@@ -185,9 +191,12 @@ class _HomePageState extends State<HomePage>
                             ),
                             const SizedBox(height: 180),
                             Text(
+                              // DateFormat('EEEE dd •')
+                              //     .add_jm()
+                              //     .format(state.weather.date!), //when use "weather packege"
                               DateFormat('EEEE dd •')
                                   .add_jm()
-                                  .format(state.weather.date!),
+                                  .format(state.weather.date),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -239,8 +248,11 @@ class _HomePageState extends State<HomePage>
                                               ),
                                               const SizedBox(height: 3),
                                               Text(
+                                                // DateFormat().add_jm().format(state
+                                                //     .weather
+                                                //     .sunrise!), //when use "weather packege"
                                                 DateFormat().add_jm().format(
-                                                    state.weather.sunrise!),
+                                                    state.weather.sunrise),
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w700,
@@ -270,8 +282,11 @@ class _HomePageState extends State<HomePage>
                                               ),
                                               const SizedBox(height: 3),
                                               Text(
+                                                // DateFormat().add_jm().format(state
+                                                //     .weather
+                                                //     .sunset!), //when use "weather packege"
                                                 DateFormat().add_jm().format(
-                                                    state.weather.sunset!),
+                                                    state.weather.sunset),
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w700,
@@ -313,7 +328,8 @@ class _HomePageState extends State<HomePage>
                                               ),
                                               const SizedBox(height: 3),
                                               Text(
-                                                '${state.weather.tempMax!.celsius!.round()}°C',
+                                                //'${state.weather.tempMax!.celsius!.round()}°C', //when use "weather packege"
+                                                '${state.weather.tempMax.round()}°C',
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w700,
@@ -343,7 +359,8 @@ class _HomePageState extends State<HomePage>
                                               ),
                                               const SizedBox(height: 3),
                                               Text(
-                                                '${state.weather.tempMin!.celsius!.round()}°C',
+                                                //'${state.weather.tempMin!.celsius!.round()}°C', //when use "weather packege"
+                                                '${state.weather.tempMin.round()}°C',
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w700,
@@ -387,7 +404,7 @@ class _HomePageState extends State<HomePage>
   }
 
   Future<void> _handleRefresh() async {
-    await weatherCubit.updateWeather();
+    await weatherCubit.fetchWeather();
   }
 
   Widget _getWeatherIcon({

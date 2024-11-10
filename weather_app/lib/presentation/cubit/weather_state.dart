@@ -12,12 +12,10 @@ final class WeatherInitial extends WeatherState {}
 final class WeatherLoading extends WeatherState {}
 
 final class WeatherLoaded extends WeatherState {
-  final Weather weather;
+  //final Weather weather; // when use "weather packege"
+  final WeatherModel weather;
 
   const WeatherLoaded(this.weather);
-
-  @override
-  List<Object> get props => [weather];
 }
 
 final class WeatherFailure extends WeatherState {}
