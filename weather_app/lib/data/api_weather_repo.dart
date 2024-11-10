@@ -3,10 +3,9 @@ import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather/weather.dart';
 import 'package:weather_app/data/my_data.dart';
+import 'package:weather_app/domain/enitites/weather_model.dart';
 import 'package:weather_app/domain/repository/weather_repository.dart';
 import 'package:http/http.dart' as http;
-
-import '../domain/enitites/weather_model.dart';
 
 class ApiWeatherRepo implements WeatherRepo {
   static const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';

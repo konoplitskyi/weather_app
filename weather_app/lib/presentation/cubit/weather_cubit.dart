@@ -14,7 +14,7 @@ class WeatherCubit extends Cubit<WeatherState> {
     emit(WeatherLoading());
     try {
       final position = await weatherRepo.getCurrentPosition();
-      //Weather weather = await weatherRepo.fetchWeather(position);// when use "weather packege"
+      //Weather weather = await weatherRepo.fetchWeather(position);// when use "weather" package
       final weatherModel = await weatherRepo.fetchWeatherOrigin(position);
       emit(WeatherLoaded(weatherModel));
     } catch (e) {
